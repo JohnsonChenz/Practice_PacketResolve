@@ -196,7 +196,7 @@ public class PacketResolve : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"<color=#FF8400>封包未完整解析，剩餘要讀取的數量 : {this._packetSizeLeft}，將進行下一次迴圈作解包</color>");
+                    Debug.Log($"<color=#FF8400>判斷已黏包，剩餘要讀取的數量 : {this._packetSizeLeft}，將進行下一次迴圈作解包</color>");
                 }
             }
             else if (bufferReadedSize == 0)
