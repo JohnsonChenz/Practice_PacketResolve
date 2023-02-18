@@ -36,9 +36,9 @@ public class PacketResolve : MonoBehaviour
 
     private void _SimulateStandardPacketResolve()
     {
-        Debug.Log("¥¿±`«Ê¥]¼ÒÀÀ");
+        Debug.Log("æ­£å¸¸å°åŒ…æ¨¡æ“¬");
 
-        // »s§@¨â¥÷«Ê¥]¡A¦@38 Byte
+        // è£½ä½œå…©ä»½å°åŒ…ï¼Œå…±38 Byte
         var sendBuffer = this._Generate19BytePacket();
         sendBuffer.AddRange(this._Generate19BytePacket());
 
@@ -47,89 +47,89 @@ public class PacketResolve : MonoBehaviour
 
     private async Task _SimulateSplitPacketResolve()
     {
-        Debug.Log("¤À¥]¼ÒÀÀ");
+        Debug.Log("åˆ†åŒ…æ¨¡æ“¬");
 
         var sendBuffer = this._Generate19BytePacket().ToArray();
 
-        // »s§@¤À¥]¡A«e5 Byte
+        // è£½ä½œåˆ†åŒ…ï¼Œå‰5 Byte
         byte[] splitBuffer = new byte[5];
         Buffer.BlockCopy(sendBuffer, 0, splitBuffer, 0, 5);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(splitBuffer);
 
-        Debug.Log($"¡i¤À¥]¼ÒÀÀ¡j¼ÒÀÀ5¬í«áServerµo°e³Ñ¾l«Ê¥]µ¹Client");
+        Debug.Log($"ã€åˆ†åŒ…æ¨¡æ“¬ã€‘æ¨¡æ“¬5ç§’å¾ŒServerç™¼é€å‰©é¤˜å°åŒ…çµ¦Client");
         await Task.Delay(5000);
 
-        // »s§@¤À¥]¡A«á14 Byte
+        // è£½ä½œåˆ†åŒ…ï¼Œå¾Œ14 Byte
         splitBuffer = new byte[14];
         Buffer.BlockCopy(sendBuffer, 5, splitBuffer, 0, 14);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(splitBuffer);
     }
 
     private async Task _SimulateStickPacketResolve()
     {
-        Debug.Log("ÂH¥]¼ÒÀÀ");
+        Debug.Log("é»åŒ…æ¨¡æ“¬");
 
         var sendBuffer = this._Generate19BytePacket();
 
-        // »s§@ÂH¥]¡A«e6 Byte
+        // è£½ä½œé»åŒ…ï¼Œå‰6 Byte
         byte[] stickBuffer = new byte[6];
         Buffer.BlockCopy(sendBuffer.ToArray(), 0, stickBuffer, 0, 5);
 
-        // ¥[¤WÂH¥]¡A­º¦¸«Ê¥]¦@25 Byte
+        // åŠ ä¸Šé»åŒ…ï¼Œé¦–æ¬¡å°åŒ…å…±25 Byte
         sendBuffer.AddRange(stickBuffer);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(sendBuffer.ToArray());
 
-        Debug.Log($"¡iÂH¥]¼ÒÀÀ¡j¼ÒÀÀ5¬í«áServerµo°e³Ñ¾l«Ê¥]µ¹Client");
+        Debug.Log($"ã€é»åŒ…æ¨¡æ“¬ã€‘æ¨¡æ“¬5ç§’å¾ŒServerç™¼é€å‰©é¤˜å°åŒ…çµ¦Client");
         await Task.Delay(5000);
 
-        // »s§@ÂH¥]¡A«á13 Byte
+        // è£½ä½œé»åŒ…ï¼Œå¾Œ13 Byte
         stickBuffer = new byte[13];
         Buffer.BlockCopy(sendBuffer.ToArray(), 6, stickBuffer, 0, 13);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(stickBuffer);
     }
 
     private async Task _SimulateSplitAndStickPacketResolve()
     {
-        Debug.Log("¤À + ÂH¥]¼ÒÀÀ");
+        Debug.Log("åˆ† + é»åŒ…æ¨¡æ“¬");
 
         var sendBuffer = this._Generate19BytePacket();
 
-        // »s§@ÂH¥]¡A«e6 Byte
+        // è£½ä½œé»åŒ…ï¼Œå‰6 Byte
         byte[] stickBuffer = new byte[6];
         Buffer.BlockCopy(sendBuffer.ToArray(), 0, stickBuffer, 0, 6);
 
-        // ¥[¤WÂH¥]¡A­º¦¸«Ê¥]¦@25 Byte
+        // åŠ ä¸Šé»åŒ…ï¼Œé¦–æ¬¡å°åŒ…å…±25 Byte
         sendBuffer.AddRange(stickBuffer);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(sendBuffer.ToArray());
 
-        Debug.Log($"¡i¤À + ÂH¥]¼ÒÀÀ¡j¼ÒÀÀ5¬í«áServerµo°e3 Byte¤À¥]µ¹Client");
+        Debug.Log($"ã€åˆ† + é»åŒ…æ¨¡æ“¬ã€‘æ¨¡æ“¬5ç§’å¾ŒServerç™¼é€3 Byteåˆ†åŒ…çµ¦Client");
         await Task.Delay(5000);
 
-        // »s§@¤À¥]¡A7~9 Byte¡A¦@3 Byte
+        // è£½ä½œåˆ†åŒ…ï¼Œ7~9 Byteï¼Œå…±3 Byte
         var splitBuffer = new byte[3];
         Buffer.BlockCopy(sendBuffer.ToArray(), 6, splitBuffer, 0, 3);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(splitBuffer.ToArray());
 
-        Debug.Log($"¡i¤À + ÂH¥]¼ÒÀÀ¡j¼ÒÀÀ5¬í«áServerµo°e³Ñ¾l¤À¥]µ¹Client");
+        Debug.Log($"ã€åˆ† + é»åŒ…æ¨¡æ“¬ã€‘æ¨¡æ“¬5ç§’å¾ŒServerç™¼é€å‰©é¤˜åˆ†åŒ…çµ¦Client");
         await Task.Delay(5000);
 
-        // »s§@¤À¥]¡A10~19 Byte¡A¦@10 Byte
+        // è£½ä½œåˆ†åŒ…ï¼Œ10~19 Byteï¼Œå…±10 Byte
         splitBuffer = new byte[10];
         Buffer.BlockCopy(sendBuffer.ToArray(), 9, splitBuffer, 0, 10);
 
-        // ¸Ñ¥]
+        // è§£åŒ…
         this._ResolvePacket(splitBuffer.ToArray());
     }
 
@@ -160,95 +160,95 @@ public class PacketResolve : MonoBehaviour
             this._tempBuffer = new byte[PacketResolve._MAX_BUFFER_SIZE];
         }
 
-        // ½Æ»s¨ì½w¦s«Ê¥]¤º
+        // è¤‡è£½åˆ°ç·©å­˜å°åŒ…å…§
         Buffer.BlockCopy(buffer, 0, this._tempBuffer, this._packetSizeLeft, buffer.Length);
 
-        Debug.Log($"½Æ»sºô¸ô«Ê¥]¦Ü«Ê¥]½w¦s...©ñ¸mªº°_©l¦ì¸m : {this._packetSizeLeft}, ©ñ¸mªºByte¼Æ¶q : {buffer.Length}");
+        Debug.Log($"è¤‡è£½ç¶²è·¯å°åŒ…è‡³å°åŒ…ç·©å­˜...æ”¾ç½®çš„èµ·å§‹ä½ç½® : {this._packetSizeLeft}, æ”¾ç½®çš„Byteæ•¸é‡ : {buffer.Length}");
 
         this._packetSizeLeft += buffer.Length;
 
-        Debug.Log($"·í«e³Ñ¾l«Ê¥]¼Æ¶q : {this._packetSizeLeft}");
+        Debug.Log($"ç•¶å‰å‰©é¤˜å°åŒ…æ•¸é‡ : {this._packetSizeLeft}");
 
         int bufferReadPos = 0;
         int resolveNum = 0;
 
         while (this._packetSizeLeft > 0)
         {
-            // ­pºâÅª¨úªº¼Æ¶q
+            // è¨ˆç®—è®€å–çš„æ•¸é‡
             int bufferReadedSize = this._ReadPacket(this._tempBuffer, this._packetSizeLeft, bufferReadPos);
 
             if (bufferReadedSize > 0)
             {
-                // ¼W¥[¤wÅª¨úªº«Ê¥]Size¦ÜPos
+                // å¢åŠ å·²è®€å–çš„å°åŒ…Sizeè‡³Pos
                 bufferReadPos += bufferReadedSize;
 
-                // ±NBuffer Offset¦©°£±¼¤wÅª¨úªº«Ê¥]¼Æ¶q
+                // å°‡Buffer Offsetæ‰£é™¤æ‰å·²è®€å–çš„å°åŒ…æ•¸é‡
                 this._packetSizeLeft -= bufferReadedSize;
 
-                Debug.Log($"Åª¨ú¨ìªºPacket¼Æ¶q : {bufferReadedSize}, ³Ñ¾lªº«Ê¥]¼Æ¶q : {this._packetSizeLeft}, Åª¨úPos : {bufferReadPos}");
+                Debug.Log($"è®€å–åˆ°çš„Packetæ•¸é‡ : {bufferReadedSize}, å‰©é¤˜çš„å°åŒ…æ•¸é‡ : {this._packetSizeLeft}, è®€å–Pos : {bufferReadPos}");
 
                 resolveNum++;
 
                 if (this._packetSizeLeft == 0)
                 {
-                    Debug.Log($"<color=#1ACB00>«Ê¥]¤w§¹¾ã¸ÑªR¡A°±¤î¸ÑªR</color>");
+                    Debug.Log($"<color=#1ACB00>å°åŒ…å·²å®Œæ•´è§£æï¼Œåœæ­¢è§£æ</color>");
                     break;
                 }
                 else
                 {
-                    Debug.Log($"<color=#FF8400>«Ê¥]¥¼§¹¾ã¸ÑªR¡A³Ñ¾l­nÅª¨úªº¼Æ¶q : {this._packetSizeLeft}¡A±N¶i¦æ¤U¤@¦¸°j°é§@¸Ñ¥]</color>");
+                    Debug.Log($"<color=#FF8400>å°åŒ…æœªå®Œæ•´è§£æï¼Œå‰©é¤˜è¦è®€å–çš„æ•¸é‡ : {this._packetSizeLeft}ï¼Œå°‡é€²è¡Œä¸‹ä¸€æ¬¡è¿´åœˆä½œè§£åŒ…</color>");
                 }
             }
             else if (bufferReadedSize == 0)
             {
-                // ¦pªGBufferReadPos > 0¡A«h¥Nªí³Ñ¾lªº«Ê¥]¨Ã¤£¦bBuffer³Ì«eºİ¡A±N¨ä²¾°Ê¨ì³Ì«eºİ¡A¥H§Q¤U¤@¦¸«Ê¥]Åª¨ú³B²z
+                // å¦‚æœBufferReadPos > 0ï¼Œå‰‡ä»£è¡¨å‰©é¤˜çš„å°åŒ…ä¸¦ä¸åœ¨Bufferæœ€å‰ç«¯ï¼Œå°‡å…¶ç§»å‹•åˆ°æœ€å‰ç«¯ï¼Œä»¥åˆ©ä¸‹ä¸€æ¬¡å°åŒ…è®€å–è™•ç†
                 if (bufferReadPos > 0)
                 {
-                    // §PÂ_¤w¤À¥]¡A±N³Ñ¾lªºBuffer¥ş¼Æ²¾¦Ü³Ì«eºİ¡A¨Ã¥Bbreak±¼°j°é¡Aµ¥«İ¤U¤@­Ó«Ê¥]ªº¨ì¨Ó...
+                    // åˆ¤æ–·å·²åˆ†åŒ…ï¼Œå°‡å‰©é¤˜çš„Bufferå…¨æ•¸ç§»è‡³æœ€å‰ç«¯ï¼Œä¸¦ä¸”breakæ‰è¿´åœˆï¼Œç­‰å¾…ä¸‹ä¸€å€‹å°åŒ…çš„åˆ°ä¾†...
                     BufferTool.MoveBufferToFront(this._tempBuffer, bufferReadPos, this._packetSizeLeft);
 
-                    Debug.Log($"<color=#FF8400>§PÂ_¤w¤À¥]...¥BReadPos > 0¡A±N²¾°ÊBuffer¤º¸ê®Æ¦Ü³Ì«eºİ : ²¾°Ê°_©lPos : {bufferReadPos}, ²¾°ÊByte¼Æ¶q : {this._packetSizeLeft}</color>");
+                    Debug.Log($"<color=#FF8400>åˆ¤æ–·å·²åˆ†åŒ…...ä¸”ReadPos > 0ï¼Œå°‡ç§»å‹•Bufferå…§è³‡æ–™è‡³æœ€å‰ç«¯ : ç§»å‹•èµ·å§‹Pos : {bufferReadPos}, ç§»å‹•Byteæ•¸é‡ : {this._packetSizeLeft}</color>");
                 }
                 else
                 {
-                    Debug.Log($"<color=#FF8400>§PÂ_¤w¤À¥]¡AReadPos = 0¡AµL»İ²¾°ÊBuffer¦Ü«eºİ</color>");
+                    Debug.Log($"<color=#FF8400>åˆ¤æ–·å·²åˆ†åŒ…ï¼ŒReadPos = 0ï¼Œç„¡éœ€ç§»å‹•Bufferè‡³å‰ç«¯</color>");
                 }
 
-                Debug.Log($"±Nµ¥«İ¤U¤@¦¸«Ê¥]ªº¨ì¨Ó...");
+                Debug.Log($"å°‡ç­‰å¾…ä¸‹ä¸€æ¬¡å°åŒ…çš„åˆ°ä¾†...");
                 break;
             }
         }
 
-        Debug.Log($"<color=#1ACB00>«Ê¥]§¹¾ã¸ÑªRªº¼Æ¶q : {resolveNum}</color>");
+        Debug.Log($"<color=#1ACB00>å°åŒ…å®Œæ•´è§£æçš„æ•¸é‡ : {resolveNum}</color>");
     }
 
     private int _ReadPacket(byte[] buffer, int packetSizeLeft, int readPos)
     {
-        // ¤£¨¬¼ĞÀYªø«×¡A¤£¤©¥H¸ÑªR
+        // ä¸è¶³æ¨™é ­é•·åº¦ï¼Œä¸äºˆä»¥è§£æ
         if (packetSizeLeft < PacketResolve._HEADER_LEN)
         {
-            Debug.Log($"<color=#FF8400>«Ê¥]ªø«×¤£¨¬©w¸q¼ĞÀYªø«× => Actual Length : {packetSizeLeft}, less than required Header Length : {PacketResolve._HEADER_LEN}, needs more packet</color>");
+            Debug.Log($"<color=#FF8400>å°åŒ…é•·åº¦ä¸è¶³å®šç¾©æ¨™é ­é•·åº¦ => Actual Length : {packetSizeLeft}, less than required Header Length : {PacketResolve._HEADER_LEN}, needs more packet</color>");
             return 0;
         }
 
         int pos = readPos;
-        Debug.Log($"·í«eÅª¨úPos : {pos}");
+        Debug.Log($"ç•¶å‰è®€å–Pos : {pos}");
 
-        // ¨ú¥XÀY2 Byte¡A±o¥Xªø«×¸ê°T
+        // å–å‡ºé ­2 Byteï¼Œå¾—å‡ºé•·åº¦è³‡è¨Š
         short length = BufferTool.GetShort(buffer, ref pos);
 
-        // ¹ê»Ú±µ¦¬¨ìªº«Ê¥]¸ê°T < ¸ÑªR¥Xªºªø«×¸ê°T = ¤À¥]
+        // å¯¦éš›æ¥æ”¶åˆ°çš„å°åŒ…è³‡è¨Š < è§£æå‡ºçš„é•·åº¦è³‡è¨Š = åˆ†åŒ…
         if (packetSizeLeft < length)
         {
-            Debug.Log($"<color=#FF8400>¤À¥] => Expected Length : {length}, Actual Length : {packetSizeLeft}, needs more packet</color>");
+            Debug.Log($"<color=#FF8400>åˆ†åŒ… => Expected Length : {length}, Actual Length : {packetSizeLeft}, needs more packet</color>");
             return 0;
         }
-        // «Ê¥]¨¬°÷¡A«áÄò¸ÑªR¦³2ºØ±¡ªp
-        // 1. PacketLeftSize = Length >>> §¹¾ã¸Ñ¥]
-        // 2. PacketLeftSize > Length >>> ÂH¥]
+        // å°åŒ…è¶³å¤ ï¼Œå¾ŒçºŒè§£ææœ‰2ç¨®æƒ…æ³
+        // 1. PacketLeftSize = Length >>> å®Œæ•´è§£åŒ…
+        // 2. PacketLeftSize > Length >>> é»åŒ…
         else
         {
-            Debug.Log($"<color=#1ACB00>«Ê¥]¨¬°÷¡A¶i¦æ¼g¤J¦ÜClient¸Ñ¥]Ãş§O</color>");
+            Debug.Log($"<color=#1ACB00>å°åŒ…è¶³å¤ ï¼Œé€²è¡Œå¯«å…¥è‡³Clientè§£åŒ…é¡åˆ¥</color>");
             this._WriteIntoNetProtocolResolver(buffer);
         }
 
@@ -257,18 +257,18 @@ public class PacketResolve : MonoBehaviour
 
     private void _WriteIntoNetProtocolResolver(byte[] buffer)
     {
-        // ¥¿¦¡¬yµ{À³¬O³z¹L¸Ñ¥XªºFuncId¨ú±oClient¹ïÀ³ªº¸Ñ¥]Ãş§O¨Ã°µ¸Ñ¥]
+        // æ­£å¼æµç¨‹æ‡‰æ˜¯é€éè§£å‡ºçš„FuncIdå–å¾—Clientå°æ‡‰çš„è§£åŒ…é¡åˆ¥ä¸¦åšè§£åŒ…
 
-        // ¦¹³B¥u¬OÂ²³æ¼ÒÀÀ«Ê¥]¸ê®Æªº¨ú¥X
+        // æ­¤è™•åªæ˜¯ç°¡å–®æ¨¡æ“¬å°åŒ…è³‡æ–™çš„å–å‡º
         int pos = 0;
-        Debug.Log($"<color=#00C4D1>¸Ñ¥] Length : {BufferTool.GetShort(buffer, ref pos)}</color>");
-        Debug.Log($"<color=#00C4D1>¸Ñ¥] FuncId : {BufferTool.GetShort(buffer, ref pos)}</color>");
-        Debug.Log($"<color=#00C4D1>¸Ñ¥] ProtocolType : {BufferTool.GetShort(buffer, ref pos)}</color>");
+        Debug.Log($"<color=#00C4D1>è§£åŒ… Length : {BufferTool.GetShort(buffer, ref pos)}</color>");
+        Debug.Log($"<color=#00C4D1>è§£åŒ… FuncId : {BufferTool.GetShort(buffer, ref pos)}</color>");
+        Debug.Log($"<color=#00C4D1>è§£åŒ… ProtocolType : {BufferTool.GetShort(buffer, ref pos)}</color>");
 
         byte d1 = BufferTool.GetByte(buffer, ref pos);
         long d2 = BufferTool.GetLong(buffer, ref pos);
         short d3 = BufferTool.GetShort(buffer, ref pos);
 
-        Debug.Log($"<color=#00C4D1>«Ê¥]¸ê®Æ¸ÑªR D1 : {d1}, D2 : {d2}, D3 : {d3}</color>");
+        Debug.Log($"<color=#00C4D1>å°åŒ…è³‡æ–™è§£æ D1 : {d1}, D2 : {d2}, D3 : {d3}</color>"); 
     }
 }

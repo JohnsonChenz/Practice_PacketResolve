@@ -87,23 +87,23 @@ public class BufferTool
 
     public static List<byte> WriteHeader(List<byte> datas, short funcId, short protocolType)
     {
-        // ­pºâªø«×
+        // è¨ˆç®—é•·åº¦
         short length = (short)(datas.Count + 2 + 2 + 2);
 
-        Debug.Log($"«Ê¥]Á`ªø«× : {length}");
+        Debug.Log($"å°åŒ…ç¸½é•·åº¦ : {length}");
 
         List<byte> buffer = new List<byte>();
 
-        // ©ñ¤Jªø«×, 2 Bytes
+        // æ”¾å…¥é•·åº¦, 2 Bytes
         BufferTool.WriteShort(length, buffer);
 
-        // ©ñ¤JFuncId, 2 Bytes
+        // æ”¾å…¥FuncId, 2 Bytes
         BufferTool.WriteShort(funcId, buffer);
 
-        // ©ñ¤JProtocolType, 2 Bytes
+        // æ”¾å…¥ProtocolType, 2 Bytes
         BufferTool.WriteShort(protocolType, buffer);
 
-        // ©ñ¤J¸ê®Æ, N Bytes
+        // æ”¾å…¥è³‡æ–™, N Bytes
         buffer.AddRange(datas);
 
         return buffer;
